@@ -2,6 +2,15 @@ class Node:
   def __init__(self, data = None):
     self.data = data
     self.next = None
+  def iter(self):
+    # Obtenemos la referencia del head
+    current = self.head
+    while current:
+      value = current.data
+      # Pasamos al siguiente elemento
+      current = current.next
+      # Regresamos un generador
+      yield value
 
 # Creando nodos
 n1 = Node('eggs')
