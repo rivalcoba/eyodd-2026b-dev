@@ -7,13 +7,17 @@ class SinglyLinkedList:
     self.size = 0
 
   def append_at_a_location(self, data, index):
-    if index < 1:
-      print("Index must be greater than 0")
-      return
+    # Verifico si el índice está dentro del rango válido
+    if index < 1 or index > self.size + 1:
+      raise IndexError(
+        f"Índice {index} fuera de rango. "
+        f"Debe estar entre 1 y {self.size + 1}."
+      )
 
+    # Creo un nuevo nodo con el dato proporcionado
     new_node = Node(data)
 
-    # Insertar al inicio
+    # Si el índice es 1, inserto al inicio de la lista
     if index == 1:
       new_node.next = self.head
       self.head = new_node
@@ -22,37 +26,29 @@ class SinglyLinkedList:
       self.size += 1
       return
 
-    # Recorrer la lista hasta la posición indicada
+    # Si el índice no es 1, procedemos a buscar la posición adecuada para la inserción
+    # Con estas variables mantendremos
+    # la posición actual durante la iteración
     current = self.head
     prev = None
     position = 1
-
-    while current and position < index:
+    # Iteramos sobre la lista hasta llegar a la posición deseada
+    while current is not None and position < index:
       prev = current
       current = current.next
       position += 1
 
-    # Insertar al final si el índice apunta al último lugar disponible
+
+    # Si llegamos al final de la lista, insertamos al final
     if current is None:
-      if prev is None:
-        self.head = new_node
-        self.tail = new_node
-      else:
-        prev.next = new_node
-        self.tail = new_node
+      prev.next = new_node
+      self.tail = new_node
       self.size += 1
       return
 
-    # Insertar en una posición intermedia
+    # Si llegamos a una posición intermedia, insertamos el nuevo nodo aquí
     new_node.next = current
-    if prev is None:
-      self.head = new_node
-    else:
-      prev.next = new_node
-
-    if new_node.next is None:
-      self.tail = new_node
-
+    prev.next = new_node
     self.size += 1
     
   def append(self, data):
@@ -72,7 +68,7 @@ class SinglyLinkedList:
 # Creando una lista enlazada
 linked_list = SinglyLinkedList()
 # Agregando elementos a la lista enlazada
-# linked_list.append('eggs')
+linked_list.append('eggs')
 # linked_list.append('ham')
 # linked_list.append('spam')
 
@@ -86,7 +82,7 @@ while current:
 
 print("\nAfter Insertion\n")
 # Insertando dato intermedio
-linked_list.append_at_a_location('new', 0)
+linked_list.append_at_a_location('new', 2)
 
 # Recorrienda
 current = linked_list.head
