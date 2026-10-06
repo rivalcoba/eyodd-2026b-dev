@@ -77,6 +77,71 @@ class SinglyLinkedList:
     while current:
       print(current.data)
       current = current.next
+
+  # Delete the first node
+  def delete_first_node(self):
+    if self.head is None:
+      print("La lista está vacía. No se puede eliminar el primer nodo.")
+      return None
+    # Guardamos el dato del nodo que será eliminado para retornarlo posteriormente
+    deleted_data = self.head.data
+    self.head = self.head.next
+    # Si la lista queda vacía después de eliminar el primer nodo, actualizamos la cola a None
+    if self.head is None:
+      self.tail = None
+    # Actualizamos el tamaño de la lista después de eliminar el nodo
+    self.size -= 1
+    # Retornamos el dato del nodo eliminado
+    return deleted_data
+  # Delete the last node of the list
+  def delete_last_node(self):
+    # Si la lista está vacía, no se puede eliminar el último nodo
+    if self.head is None:
+      print("La lista está vacía. No se puede eliminar el último nodo.")
+      return None
+    # Si la lista tiene un solo nodo, eliminamos ese nodo y actualizamos head y tail a None
+    if self.head.next is None:
+      deleted_data = self.head.data
+      self.head = None
+      self.tail = None
+      self.size -= 1
+      return deleted_data
+    # Si la lista tiene más de un nodo, recorremos hasta el penúltimo nodo
+    current = self.head
+    # Empezamos desde el head y avanzamos hasta encontrar el penúltimo nodo
+    while current.next.next:
+      current = current.next
+    # current ahora apunta al penúltimo nodo
+    deleted_data = current.next.data
+    current.next = None
+    self.tail = current
+    self.size -= 1
+    return deleted_data
+  # Eliminando un nodo por su valor
+  def delete_node_by_value(self, value):
+    # Si la lista está vacía, no se puede eliminar ningún nodo
+    if self.head is None:
+      print("La lista está vacía. No se puede eliminar el nodo.")
+      return None
+    # Si el nodo a eliminar es el primer nodo
+    if self.head.data == value:
+      return self.delete_first_node()
+    # Recorremos la lista para encontrar el nodo a eliminar
+    current = self.head
+    while current.next and current.next.data != value:
+      current = current.next
+    # Si no se encontró el nodo con el valor especificado
+    if current.next is None:
+      print(f"El nodo con valor {value} no se encontró.")
+      return None
+    # Eliminamos el nodo encontrado
+    deleted_data = current.next.data
+    current.next = current.next.next
+    # Si el nodo eliminado era el último, actualizamos la cola
+    if current.next is None:
+      self.tail = current
+    self.size -= 1
+    return deleted_data
 # ----------------- FIN DE LA CLASE -----------------
 
 # -------------- USO ---------------------
@@ -86,30 +151,15 @@ linked_list = SinglyLinkedList()
 linked_list.append('eggs')
 linked_list.append('ham')
 linked_list.append('spam')
+linked_list.append('bacon')
 
 # Impresion de lista
 print("\nBefore Insertion\n")
 linked_list.print_list()
 
-# Insertando dato intermedio
-linked_list.append_at_a_location('new', 2)
+# Eliminando el primer nodo
+linked_list.delete_node_by_value('eggs')
 
 # Impresion de lista
-print("\nAfter Insertion\n")
+print("\nAfter Deletion\n")
 linked_list.print_list()
-
-# Buscando elementos
-data_to_search = ['new', 'eggs','neww']
-for data in data_to_search:
-  found_value = linked_list.search(data)
-  if found_value:
-    print(f"Elemento encontrado: {found_value}")
-  else:
-    print("Elemento no encontrado")
-
-
-'''
-# Link Traversal 2
-for val in linked_list.head.iter():
-  print(val)  # Imprime: eggs, ham, spam
-'''
