@@ -6,6 +6,13 @@ class SinglyLinkedList:
     self.tail = None
     self.size = 0
 
+  # Implementación de la busqueda de datos
+  def search(self, data):
+    for value in self.head.iter():
+      if value == data:
+        return value
+    return None
+      
   def append_at_a_location(self, data, index):
     # Verifico si el índice está dentro del rango válido
     if index < 1 or index > self.size + 1:
@@ -65,30 +72,42 @@ class SinglyLinkedList:
       self.tail = new_node
     self.size += 1
 
+  def print_list(self):
+    current = self.head
+    while current:
+      print(current.data)
+      current = current.next
+# ----------------- FIN DE LA CLASE -----------------
+
+# -------------- USO ---------------------
 # Creando una lista enlazada
 linked_list = SinglyLinkedList()
 # Agregando elementos a la lista enlazada
 linked_list.append('eggs')
-# linked_list.append('ham')
-# linked_list.append('spam')
+linked_list.append('ham')
+linked_list.append('spam')
 
-print("\nBedoreAfter Insertion\n")
+# Impresion de lista
+print("\nBefore Insertion\n")
+linked_list.print_list()
 
-# Recorriendo
-current = linked_list.head
-while current:
-  print(current.data)  # Imprime: eggs, ham, spam
-  current = current.next
-
-print("\nAfter Insertion\n")
 # Insertando dato intermedio
 linked_list.append_at_a_location('new', 2)
 
-# Recorrienda
-current = linked_list.head
-while current:
-  print(current.data)  # Imprime: eggs, ham, spam
-  current = current.next
+# Impresion de lista
+print("\nAfter Insertion\n")
+linked_list.print_list()
+
+# Buscando elementos
+data_to_search = ['new', 'eggs','neww']
+for data in data_to_search:
+  found_value = linked_list.search(data)
+  if found_value:
+    print(f"Elemento encontrado: {found_value}")
+  else:
+    print("Elemento no encontrado")
+
+
 '''
 # Link Traversal 2
 for val in linked_list.head.iter():
