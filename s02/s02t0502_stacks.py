@@ -23,7 +23,7 @@ class Stack:
   def pop(self):
     if self.is_empty():
       return None
-    popped_value = self.top.value
+    popped_value = self.top.data
     self.top = self.top.next
     self._size -= 1
     return popped_value
@@ -32,7 +32,7 @@ class Stack:
   def peek(self):
     if self.is_empty():
       return None
-    return self.top.value
+    return self.top.data
 
   # Vacía la pila
   def clear(self):
@@ -48,19 +48,19 @@ class Stack:
     current = self.top
     stack_values = []
     while current:
-      stack_values.append(current.value)
+      stack_values.append(current.data)
       current = current.next
     print(stack_values)
 
-  # Probando la pila
-  if __name__ == "__main__":
-    stack = Stack()
-    stack.push(1)
-    stack.push(2)
-    stack.push(3)
-    stack.print_stack()  # Output: [3, 2, 1]
-    print(stack.pop())   # Output: 3
-    print(stack.peek())  # Output: 2
-    print(stack.size())  # Output: 2
-    stack.clear()
-    print(stack.is_empty())  # Output: True
+# Probando la pila
+if __name__ == "__main__":
+  stack = Stack()
+  stack.push(1)
+  stack.push(2)
+  stack.push(3)
+  stack.print_stack()  # Output: [3, 2, 1]
+  print(stack.pop())   # Output: 3
+  print(stack.peek())  # Output: 2
+  print(stack.size())  # Output: 2
+  stack.clear()
+  print(stack.is_empty())  # Output: True
