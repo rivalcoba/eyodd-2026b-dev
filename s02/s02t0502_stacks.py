@@ -61,6 +61,6 @@ if __name__ == "__main__":
   stack.print_stack()  # Output: [3, 2, 1]
   print(stack.pop())   # Output: 3
   print(stack.peek())  # Output: 2
-  print(stack.size())  # Output: 2
+  print(stack.size())  # Output: 2  
   stack.clear()
   print(stack.is_empty())  # Output: True
